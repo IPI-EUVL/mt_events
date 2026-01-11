@@ -206,6 +206,11 @@ class Awaiter:
         :type kwargs: dict | None
         """
 
+        if pargs is None:
+            pargs = []
+        if kwargs is None:
+            kwargs = dict()
+
         self.__cb_fn = fn
         self.__cb_pargs = list(pargs)
         self.__cb_kwargs = dict(kwargs)
@@ -222,6 +227,11 @@ class Awaiter:
         :param kwargs: kwargs to pass in to fn as additional args if desired
         :type kwargs: dict | None
         """
+
+        if pargs is None:
+            pargs = []
+        if kwargs is None:
+            kwargs = dict()
 
         self.__except_fn = fn
         self.__except_pargs = list(pargs)
