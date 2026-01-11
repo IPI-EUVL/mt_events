@@ -18,6 +18,9 @@ maintainers = [
   { name = "Alp Doganer", email = "doganer2@illinois.edu" },
 ]
 
+[project.urls]
+Repository = "https://github.com/IPI-EUVL/mt_events.git"
+
 [tool.setuptools]
 package-dir = { "" = "src" }
 
