@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mt_events"
-version = "0.1.0"
+version = "0.1.1"
 description = "Utility module providing event queues and JS style async awaiter promises"
 readme = "README.md"
 requires-python = ">=3.0"
