@@ -10,7 +10,7 @@ class Event:
     def __init__(self):
         self.__senders = []
 
-    def bind(self, consumer : "EventConsumer"):
+    def bind(self, consumer : "EventConsumer", event_id = None):
         """
         Bind a consumer to this event.
         
@@ -18,7 +18,7 @@ class Event:
         :type consumer: "EventConsumer"
         """
 
-        sender = consumer.create_sender()
+        sender = consumer.create_sender(event_id)
         self.__senders.append(sender)
 
         return sender.get_event()
@@ -82,15 +82,16 @@ class EventConsumer:
         return e
 
 
-    def create_sender(self):
+    def create_sender(self, event_id = None):
         """
         Construct a sender object for this queue.
         """
 
-        e = self.__next_event
-        self.__next_event+=1
+        if event_id is None:
+            event_id = self.__next_event
+            self.__next_event+=1
 
-        return self._EventSender(self, e)
+        return self._EventSender(self, event_id)
 
     class _EventSender:
         def __init__(self, flag : "EventConsumer", event: int):
