@@ -9,6 +9,7 @@ class Event:
 
     def __init__(self):
         self.__senders = []
+        self.__chain = []
 
     def bind(self, consumer : "EventConsumer", event_id = None):
         """
@@ -22,6 +23,17 @@ class Event:
         self.__senders.append(sender)
 
         return sender.get_event()
+    
+    def chain(self, other_event : "Event"):
+        """
+        Chain this event to another event, so that when this event is called,
+        the other event is also called.
+        
+        :param other_event: Event to chain to
+        :type other_event: "Event"
+        """
+
+        self.__chain.append(other_event)
 
     def unbind(self, consumer : "EventConsumer"):
         """
@@ -43,6 +55,9 @@ class Event:
 
         for sender in self.__senders:
             sender.send()
+
+        for chained_event in self.__chain:
+            chained_event.call()
 
 class EventConsumer:
     """
